@@ -7,27 +7,45 @@ class App extends Component {
     super(props);
 
     this.state = {
-      ailments: [
-        {
-          "problemID": 120,
-          "hcText": "Detoxification"
-        },
-        {
-          "problemID": 30,
-          "hcText": "Diabetes Type-1"
-        },
-        {
-          "problemID": 16,
-          "hcText": "Diabetes Type-2"
-        }
-      ]
+      ailments: [],
+      selectedAilment: null
     }
   }
 
+  componentDidMount() {
+    fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
+    .then(resp => {
+      if(!resp.ok) {
+        throw new Error (resp.statusText)
+      }
+      return resp.json()
+    })
+    .then(respJson => {
+      console.log(respJson);
+      this.setState({
+        ailments: respJson,
+        error: null
+      });
+    })
+    .catch(err => {
+      this.setState({
+        error: err.message
+      })
+    })
+  }
+
   render() {
+    const {ailments, selectedAilment, error} = this.state;
+    const autocompleteComponent = ailments.length === 0
+      ?  <div className="loading-div">Loading...</div>
+      :  <Autocomplete ailments={ailments}/>;
+    const errorComponent = error
+      ?  <div className="error-div">{error}</div>
+      : null;
     return (
       <div className="App">
-        <Autocomplete ailments={this.state.ailments}/>
+        {error}
+        {autocompleteComponent}
       </div>
     );
   }
