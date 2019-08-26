@@ -1,0 +1,48 @@
+.Autocomplete__form > label {
+  display: block;
+  line-height: 32px;
+}
+.Autocomplete__form > input, .Autocomplete__form li {
+  line-height: 36px;
+  height: 36px;
+  font-size: 16px;
+  padding: 0 8px;
+  width: 25vw;
+}
+
+.Autocomplete__form input {
+  margin: 0 auto;
+}
+
+.Autocomplete__form input:focus, .Autocomplete__form a:focus {
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.Autocomplete__form input:focus{
+  border: 1px solid black;
+}
+
+.Autocomplete__form li {
+  list-style: none;
+  margin: 1px auto;
+  background-color: lightblue;
+}
+
+.Autocomplete__form li:hover, .Autocomplete__form li.active {
+  transform: translate(16px);
+}
+
+ul.Autocomplete__suggestionsList {
+  padding: 0;
+  margin: 0;
+}
+
+.Autocomplete__form a {
+  text-decoration: none;
+  color: grey;
+}
+
+.Autocomplete__form a:hover, .Autocomplete__form a:focus  {
+  color: black;
+}
