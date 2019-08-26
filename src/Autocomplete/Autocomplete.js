@@ -32,7 +32,7 @@ class Autocomplete extends Component {
   }
 
   onClick = (e) => {
-    console.log(e.currentTarget.value);
+    //console.log(e.currentTarget.value);
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions: [],
@@ -67,7 +67,7 @@ class Autocomplete extends Component {
   }
 
   onSubmit = (e) => {
-    const { userInput, activeAilmentId } = this.state;
+    const { activeAilmentId } = this.state;
     e.preventDefault();
     this.props.onSubmit(e, activeAilmentId);
     this.setState({
@@ -77,9 +77,6 @@ class Autocomplete extends Component {
       showSuggestions: false,
       activeAilmentId: null
     })
-
-    // console.log('user input', {userInput});
-    // console.log('user input', {activeAilmentId});
   }
 
   render() {
@@ -102,7 +99,7 @@ class Autocomplete extends Component {
                   onClick={onClick}
                   className={activeSuggestion === i ? "active" : null}
                 >
-                  <a href="#">{ailment.hcText}</a>
+                  <a href="/#">{ailment.hcText}</a>
                 </li>
               )
             })}
@@ -135,17 +132,6 @@ class Autocomplete extends Component {
       </React.Fragment>
     );
 
-    // return(
-    //   <div className='Autocomplete'>
-    //     <form>
-    //       <label htmlFor="ailmentInput">Enter health issue or problem area</label>
-    //       <select type="text" name="ailment input" id="ailmentInput" placeholder="lungs">
-    //         <option value="None">Select health issue or problem area</option>
-    //         {ailmentOptions}
-    //       </select>
-    //     </form>
-    //   </div>
-    // );
   }
 }
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import Autocomplete from './Autocomplete/Autocomplete';
+//import Autocomplete from './Autocomplete/Autocomplete';
+import Banner from './Banner/Banner';
 
 class App extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class App extends Component {
     this.state = {
       ailments: [],
       results: [],
-      showForm: true
+      showBanner: true
     }
   }
 
@@ -39,24 +40,36 @@ class App extends Component {
     e.preventDefault();
     console.log(activeAilmentId);
     this.setState({
-      showForm: false
+      showBanner: false
+    })
+  }
 
+  handleShowBanner = (e) => {
+    this.setState({
+      showBanner: true
     })
   }
 
   render() {
-    const {ailments, results, error, showForm} = this.state;
-    const {onSubmit} = this;
-    const autocompleteComponent = ailments.length === 0
-      ?  <div className="loading-div">Loading...</div>
-      :  <Autocomplete ailments={ailments} onSubmit={onSubmit} showForm={showForm}/>;
+    const {ailments, results, error, showBanner} = this.state;
+    const {onSubmit, handleShowBanner} = this;
+
+    // const autocompleteComponent = ailments.length === 0
+    //   ?  <div className="loading-div">Loading...</div>
+    //   :  <Autocomplete ailments={ailments} onSubmit={onSubmit} />;
     const errorComponent = error
       ?  <div className="error-div">{error}</div>
       : null;
+
+    const bannerShowButton = showBanner
+      ? null
+      : <button type="button" onClick={handleShowBanner}>Start a new search</button>;
+
     return (
       <div className="App">
         {errorComponent}
-        {autocompleteComponent}
+        <Banner className={showBanner ? "visible" : "slide-up"} ailments={ailments} onSubmit={onSubmit} />
+        { bannerShowButton }
       </div>
     );
   }
