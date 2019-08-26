@@ -4,8 +4,22 @@
   height: 80vh;
   transition-timing-function: ease;
   transition: 0.5s;
+  padding: 16px;
 }
 
 .Banner.slide-up {
   transform: translate(0, -80vh);
+  height: 0px;
 }
+
+.Banner {
+  text-align: center;
+}
+
+.Banner > h1 {
+  margin: 0;
+  /*padding: 16px 0;*/
+}
+
+
+

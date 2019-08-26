@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import './Autocomplete.css';
 
 
 class Autocomplete extends Component {
-  static propTypes = {};
+  //static propTypes = {};
   static defaultProps = {
     ailments: []
   }
@@ -32,20 +32,20 @@ class Autocomplete extends Component {
   }
 
   onClick = (e) => {
-    //console.log(e.currentTarget.value);
     this.setState({
       activeSuggestion: 0,
       filteredSuggestions: [],
       showSuggestions: false,
       userInput: e.currentTarget.innerText,
       activeAilmentId: e.currentTarget.value
-    })
+    });
   }
 
   onKeyDown = (e) => {
     const { activeSuggestion, filteredSuggestions } = this.state;
     if(e.keyCode === 13) {
       console.log('enter key');
+      e.preventDefault();
       this.setState({
         activeSuggestion: 0,
         filteredSuggestions: [],
@@ -127,7 +127,7 @@ class Autocomplete extends Component {
 
           />
           {suggestionsListComponent}
-          {/*<button type="submit">Submit</button>*/}
+          <button type="submit">Submit</button>
         </form>
       </React.Fragment>
     );

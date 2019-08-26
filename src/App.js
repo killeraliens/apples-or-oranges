@@ -46,7 +46,8 @@ class App extends Component {
 
   handleShowBanner = (e) => {
     this.setState({
-      showBanner: true
+      showBanner: true,
+      results: []
     })
   }
 
@@ -63,7 +64,7 @@ class App extends Component {
 
     const bannerShowButton = showBanner
       ? null
-      : <button type="button" onClick={handleShowBanner}>Start a new search</button>;
+      : <button type="button" id="show-banner-btn" onClick={handleShowBanner}>Start a new search</button>;
 
     return (
       <div className="App">

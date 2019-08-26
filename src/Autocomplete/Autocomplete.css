@@ -1,3 +1,9 @@
+.Autocomplete__form {
+  max-width: 300px;
+  margin: 0 auto;
+
+}
+
 .Autocomplete__form > label {
   display: block;
   line-height: 32px;
