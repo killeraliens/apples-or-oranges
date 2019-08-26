@@ -4,12 +4,11 @@
 }
 
 .App {
-  display: block;
-  height: auto;
+
 }
 
 #show-banner-btn {
-  position: absolute;
+
 }
 
 @keyframes App-logo-spin {
