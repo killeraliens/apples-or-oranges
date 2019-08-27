@@ -4,6 +4,8 @@ import './App.css';
 import Banner from './Banner/Banner';
 
 class App extends Component {
+  //static default propTypes = {};
+
   constructor(props) {
     super(props);
 
@@ -15,26 +17,41 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
-    .then(resp => {
-      if(!resp.ok) {
-        throw new Error (resp.statusText)
-      }
-      return resp.json()
-    })
-    .then(respJson => {
-      console.log(respJson);
-      this.setState({
-        ailments: respJson,
-        error: null
-      });
-    })
-    .catch(err => {
-      this.setState({
-        error: err.message
+  async componentDidMount() {
+    const resp = await fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083');
+    console.log(resp.status);
+    if (resp.status === 200) {
+      resp.json().then(respJson => {
+        this.setState({
+          ailments: respJson,
+          error: null
+        })
       })
-    })
+    } else {
+      //throw new Error('Problem loading ailments search')
+      this.setState({
+        error: 'Problem loading ailments search'
+      })
+    }
+    // fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
+    // .then(resp => {
+    //   if(!resp.ok) {
+    //     throw new Error (resp.statusText)
+    //   }
+    //   return resp.json()
+    // })
+    // .then(respJson => {
+    //   console.log(respJson);
+    //   this.setState({
+    //     ailments: respJson,
+    //     error: null
+    //   });
+    // })
+    // .catch(err => {
+    //   this.setState({
+    //     error: err.message
+    //   })
+    // })
   }
 
   onSubmit = (e, activeAilmentId) => {
@@ -88,6 +105,8 @@ class App extends Component {
     const resultsComponent = topResults.length > 0 || avoidResults.length > 0
       ? <div>Results component</div>
       : null;
+
+    const loadingPage = <div>Loading Suggestions...</div>;
 
     return (
       <div className="App">
