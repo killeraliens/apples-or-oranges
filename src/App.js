@@ -17,7 +17,7 @@ class App extends Component {
     }
   }
 
-  async componentDidMount() {
+   async componentDidMount() {
     const resp = await fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083');
     console.log(resp.status);
     if (resp.status === 200) {
@@ -33,12 +33,13 @@ class App extends Component {
         error: 'Problem loading ailments search'
       })
     }
-    // fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
+    // let setAutocomplete = await fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
     // .then(resp => {
     //   if(!resp.ok) {
     //     throw new Error (resp.statusText)
     //   }
-    //   return resp.json()
+    //   let responseJson = resp.json();
+    //   return responseJson;
     // })
     // .then(respJson => {
     //   console.log(respJson);
@@ -52,6 +53,8 @@ class App extends Component {
     //     error: err.message
     //   })
     // })
+
+    // return setAutocomplete;
   }
 
   onSubmit = (e, activeAilmentId) => {
