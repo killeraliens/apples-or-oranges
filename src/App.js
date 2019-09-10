@@ -13,48 +13,60 @@ class App extends Component {
       ailments: [],
       topResults: [],
       avoidResults: [],
-      showBanner: true
+      showBanner: true,
+      loadCounter: 0
     }
   }
 
-   async componentDidMount() {
-    const resp = await fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083');
-    console.log(resp.status);
-    if (resp.status === 200) {
-      resp.json().then(respJson => {
-        this.setState({
-          ailments: respJson,
-          error: null
-        })
-      })
-    } else {
-      //throw new Error('Problem loading ailments search')
-      this.setState({
-        error: 'Problem loading ailments search'
-      })
-    }
-    // let setAutocomplete = await fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
-    // .then(resp => {
-    //   if(!resp.ok) {
-    //     throw new Error (resp.statusText)
-    //   }
-    //   let responseJson = resp.json();
-    //   return responseJson;
-    // })
-    // .then(respJson => {
-    //   console.log(respJson);
-    //   this.setState({
-    //     ailments: respJson,
-    //     error: null
-    //   });
-    // })
-    // .catch(err => {
-    //   this.setState({
-    //     error: err.message
-    //   })
-    // })
 
-    // return setAutocomplete;
+  async componentDidMount() {
+
+    let didTimeout = false;
+
+    new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        didTimeout = true;
+        reject(new Error('Timedout!!!!'));
+      }, 5000);
+
+      fetch('https://nutridigm-api-dev.azurewebsites.net/api/v1/nutridigm/healthconditions?subscriptionId=dd79cc82-f959-74f0-5fb4-f24082721083')
+      .then(resp => {
+        clearTimeout(timeout);
+        console.log('fetched response', {resp});
+        if (!didTimeout ) {
+          resolve(resp);
+        }
+      })
+      .catch(err => {
+        console.log(err.message)
+        if(didTimeout) {
+          console.log('timedOUT');
+          return err;
+        }
+        reject(err);
+      })
+    })
+    .then(promiseReturn => {
+      console.log('successful promise');
+      return promiseReturn.json();
+    })
+    .then(prJson => {
+      console.log('do stuff with json');
+      console.log(prJson);
+      this.setState({
+        ailments: prJson,
+        error: null
+      })
+    })
+    .catch(err => {
+      this.setState({
+        error: err.message
+      })
+    })
+
+
+
+
   }
 
   onSubmit = (e, activeAilmentId) => {

@@ -84,6 +84,7 @@ class Autocomplete extends Component {
     const { activeSuggestion, filteredSuggestions, showSuggestions, userInput} = this.state;
     const { onChange, onKeyDown, onClick, onSubmit} = this;
 
+
     let suggestionsListComponent;
 
     if(userInput && showSuggestions) {
@@ -124,7 +125,6 @@ class Autocomplete extends Component {
             value={userInput}
             onChange={onChange}
             onKeyDown={onKeyDown}
-
           />
           {suggestionsListComponent}
           <button type="submit">Submit</button>

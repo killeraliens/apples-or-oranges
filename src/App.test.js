@@ -6,9 +6,9 @@ import toJson from 'enzyme-to-json';
 
 
 describe('App component', () => {
-  it('renders without crashing', async () => {
+  it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render( await <App />, div);
+    ReactDOM.render( <App />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 
@@ -21,7 +21,7 @@ describe('App component', () => {
 
   });
 
-  test('sets ailments state in componentDidMount function', async () => {
+  it('sets ailments state in componentDidMount function', async () => {
     window.fetch = jest.fn().mockImplementation(() => ({
       status: 200,
       json: () => new Promise((resolve, reject) => {
@@ -34,7 +34,6 @@ describe('App component', () => {
       })
     }));
 
-    //jest.setTimeout(10000);
     const renderedApp = await shallow(<App />);
     console.log(renderedApp.state('ailments'));
     let updatedWrapper = await renderedApp.update();

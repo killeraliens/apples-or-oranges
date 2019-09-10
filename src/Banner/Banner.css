@@ -22,5 +22,18 @@
   /*padding: 16px 0;*/
 }
 
+.loading-div {
+  animation-name: App-logo-spin;
+  animation-duration: 10s;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 

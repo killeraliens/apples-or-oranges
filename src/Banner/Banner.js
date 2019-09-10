@@ -5,10 +5,10 @@ import Autocomplete from '../Autocomplete/Autocomplete';
 
 class Banner extends Component {
   render() {
-    const { ailments, onSubmit } = this.props;
+    const { ailments, onSubmit, passError } = this.props;
     const autocompleteComponent = ailments.length === 0
       ?  <div className="loading-div">Loading...</div>
-      :  <Autocomplete ailments={ailments} onSubmit={onSubmit} />;
+      :  <Autocomplete ailments={ailments} onSubmit={onSubmit} handleError={passError}/>;
     return(
       <div className={'Banner ' + this.props.className }>
         <h1>Apples Or Oranges</h1>
